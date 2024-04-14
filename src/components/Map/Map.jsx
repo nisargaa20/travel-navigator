@@ -1,23 +1,42 @@
-import React from 'react';
-import GoogleMapReact from 'google-map-react';
-import useStyles from './styles';
+import React, { useEffect, useRef } from 'react';
+import 'ol/ol.css';
+import { Map as OLMap, View } from 'ol';
+import { Tile as TileLayer } from 'ol/layer';
+import { OSM } from 'ol/source';
 
-const Map = () => {
-  const classes = useStyles();
+const OpenLayersMap = () => {
+  const mapRef = useRef(null);
 
-  // Define your default coordinates
-  const coordinates = { lat: 0, lng: 0 };
+  useEffect(() => {
+   
+    const map = new OLMap({
+      target: mapRef.current,
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+      ],
+      view: new View({
+        center: [0, 0], 
+        zoom: 2, 
+      }),
+    });
+
+   
+    return () => {
+      map.setTarget(undefined);
+    };
+  }, []);
 
   return (
-    <div className={classes.mapContainer}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: }}
-        defaultCenter={coordinates}
-        center={coordinates}
-        defaultZoom={14}
-      />
-    </div>
+    <div
+      ref={mapRef}
+      style={{
+        width: '100%',  
+        height: '100vh', 
+      }}
+    />
   );
 };
 
-export default Map;
+export default OpenLayersMap;

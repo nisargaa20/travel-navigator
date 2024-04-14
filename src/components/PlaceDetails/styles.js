@@ -1,10 +1,13 @@
-import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
-
-const Header = () => {
-  return (
-    <h1>Header</h1>
-  );
-};
-
-export default Header;
+export default makeStyles(() => ({
+  chip: {
+    margin: '5px 5px 5px 0',
+  },
+  subtitle: {
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '10px',
+  },
+  spacing: {
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+  },
+}));
